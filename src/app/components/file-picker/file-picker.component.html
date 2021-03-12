@@ -1,9 +1,44 @@
-<p>file-picker works!</p>
-<div>
+<div style="float: right">
   <input
-    type="file"
-    name="fileupload"
-    id="upfile"
-    (change)="fileUploadHandler($event.target.files)"
+    type="checkbox"
+    id="switch"
+    class="toggleInput"
+    (click)="toggleTheme()"
   />
+  <label for="switch" class="toggle"> Toggle </label>
+</div>
+
+<div class="container" style="height: 90vh">
+  <div class="wrapper">
+    <h1>Text Encrypter</h1>
+    <input  id="pass" class="pass" [(ngModel)]='password' type="password" placeholder="Password" minlength="8" required #pass='ngModel'>
+    <div *ngIf="pass.errors &&(pass.dirty || pass.touched)">
+      <small *ngIf="pass.errors.minlength">Password must contain at least 8 or more characters</small>
+      <small *ngIf="pass.errors.required">Password is required</small>
+    </div>
+    <div class="container">
+      <input
+      [disabled] ="pass.errors"
+      style="display: none;"
+      type="file"
+      name="fileupload"
+      id="upfile"
+      (change)="fileUploadHandler($event.target.files)"
+      accept="text/plain"
+      />
+      <label class="btn" [class.invalid]="pass.invalid" for="upfile" >Encrypt</label>
+      
+      <input
+      [disabled] ="pass.errors"
+      
+      style="display: none;"
+      type="file"
+      name="fileupload2"
+      id="upfile2"
+      (change)="fileUploadHandlerDe($event.target.files)"
+      accept=".json"
+      />
+      <label class="btn " [class.invalid]="pass.invalid" for="upfile2">Decrypt</label>
+    </div>
+  </div>
 </div>
